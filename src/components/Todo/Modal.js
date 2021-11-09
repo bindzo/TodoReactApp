@@ -39,8 +39,8 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           {props.modalType==='delete' ? 
-            <DeleteTodo handleClose={handleClose} onClick={props.handleDeleteTodo}/> : 
-            <UpdateTodo handleClose={handleClose} onClick={props.handleChangeTitle}/>}
+            <DeleteTodo handleClose={handleClose} onClick={props.handleDeleteTodo} id={props.selectedTodoId}/> : 
+            <UpdateTodo handleClose={handleClose} onClick={props.handleChangeTitle} id={props.selectedTodoId}/>}
         </Box>
       </Modal>
     </div>

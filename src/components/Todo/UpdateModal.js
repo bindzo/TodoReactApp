@@ -1,12 +1,14 @@
 import { Button, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
+import { updateTodo } from '../../utils/todo.utils'
 
 
 const UpdateModal = (props) => {
   const [updatedTodo, setUpdatedTodo] = useState('')
   const onUpdateClick = () => {
     props.onClick(updatedTodo)
+    updateTodo({id: props.id, title: updatedTodo});
     props.handleClose()
   }
   return (

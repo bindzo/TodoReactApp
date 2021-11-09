@@ -2,6 +2,7 @@ import { Checkbox, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemT
 import React, { useEffect, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import CreateIcon from '@mui/icons-material/Create';
+import { updateTodo } from '../../utils/todo.utils';
 
 const ItemTodo = (props) => {
   const [title,setTitle] = useState(props.todo.title)
@@ -9,6 +10,7 @@ const ItemTodo = (props) => {
 
   const _handleChangeDone = (e) => {
     setDone(e.target.checked)
+    updateTodo({done: e.target.checked, id: props.todo._id});
     props.handleChangeDone(e.target.checked,props.todo._id);
   }
 

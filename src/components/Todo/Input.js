@@ -1,6 +1,7 @@
 import { Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { addTodo } from '../../utils/todo.utils'
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -19,6 +20,7 @@ const Input = (props) => {
   const _handleSubmit = () => {
     if(newTodo) {
       setNewTodo('');
+      addTodo({title: newTodo});
       props.handleSubmit(newTodo, false)
     }
   }

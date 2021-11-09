@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { Card, CardContent, Typography } from '@mui/material'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import List from './ListTodo'
 import styled from 'styled-components'
 import Input from './Input'
 import Modal from './Modal'
+import axios from 'axios'
+import { getAllTodos } from '../../utils/todo.utils'
 const todosInit = [
   {
     "_id": "618502d263f46dd163d88b5a",
@@ -45,10 +48,36 @@ const Container = styled.div`
 `
 
 const Todo = () => {
-  const [todos, setTodos] = useState(todosInit)
+  const [todos, setTodos] = useState([])
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [modalType, setModalType] = useState('');
   let selectedTodoId = useRef('')
+  const [time, setTime] = useState('');
+
+  useEffect(() => {
+    const fetchTimeRequest = async () => {
+      try {
+        const res = await axios.get(`http://worldtimeapi.org/api/timezone/Asia/Kolkata`);
+        const data = res.data;
+        setTime(data.datetime);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    
+    fetchTodoRequest();
+    fetchTimeRequest();
+  }, [])
+  const fetchTodoRequest = async () => {
+    try {
+      const data = await getAllTodos();
+      console.log(data);
+      setTodos(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleSubmit = (title, done) => {
     const newTodo = {
       _id: new Date(),
@@ -60,6 +89,7 @@ const Todo = () => {
     }
     setTodos([...todos, newTodo])
   }
+
   const handleChangeDone = (done, id) => {
     const newTodos = todos.map((todo) => {
       if(todo._id === id) {
@@ -74,7 +104,6 @@ const Todo = () => {
     const newTodos = todos.map((todo) => {
       if(todo._id === selectedTodoId.current) {
         todo.title = title
-        console.log(todo);
       }
       return todo
     })
@@ -97,6 +126,9 @@ const Todo = () => {
     <Container>
       <Card sx={{ minWidth: 600 }}>
         <CardContent>
+          <Typography gutterBottom variant="p" component="div">
+            Time: {time}
+          </Typography>
           <Typography gutterBottom variant="h5" component="div">
           TODO LIST
           </Typography>
@@ -105,6 +137,7 @@ const Todo = () => {
         </CardContent>
       </Card>
       <Modal 
+        selectedTodoId={selectedTodoId.current}
         isOpenModal={isOpenModal} 
         modalType={modalType} 
         onCloseModal={() => setIsOpenModal(false)}

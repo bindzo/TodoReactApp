@@ -1,12 +1,14 @@
 import { Button, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
+import { deleteTodo } from '../../utils/todo.utils'
 
 
 const DeleteModal = (props) => {
 
   const onDeleteClick = () => {
     props.onClick()
+    deleteTodo({id: props.id})
     props.handleClose()
   }
   return (
