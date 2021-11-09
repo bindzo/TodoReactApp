@@ -71,7 +71,6 @@ const Todo = () => {
   const fetchTodoRequest = async () => {
     try {
       const data = await getAllTodos();
-      console.log(data);
       setTodos(data);
     } catch (err) {
       console.log(err);
