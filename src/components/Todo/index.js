@@ -7,35 +7,6 @@ import Input from './Input'
 import Modal from './Modal'
 import axios from 'axios'
 import { getAllTodos } from '../../utils/todo.utils'
-const todosInit = [
-  {
-    "_id": "618502d263f46dd163d88b5a",
-    "title": "hello",
-    "done": false,
-    "date": "2021-11-05T10:09:22.006Z",
-    "priority": 1,
-    "userId": "6184f82b6a22c9027e4a324d",
-    "__v": 0
-  },
-  {
-    "_id": "618502d263f46dd163d88b5b",
-    "title": "hello2",
-    "done": false,
-    "date": "2021-11-05T10:09:22.006Z",
-    "priority": 1,
-    "userId": "6184f82b6a22c9027e4a324d",
-    "__v": 0
-  },
-  {
-    "_id": "618502d263f46dd163d88b5c",
-    "title": "hello3",
-    "done": true,
-    "date": "2021-11-05T10:09:22.006Z",
-    "priority": 1,
-    "userId": "6184f82b6a22c9027e4a324d",
-    "__v": 0
-  }
-]
 
 const Container = styled.div`
   display: flex;
@@ -71,12 +42,17 @@ const Todo = () => {
   const fetchTodoRequest = async () => {
     try {
       const data = await getAllTodos();
-      setTodos(data);
+      const sortedData = sortTodos(data)
+      setTodos(sortedData);
     } catch (err) {
       console.log(err);
     }
   };
 
+
+  const sortTodos = (arr) => {
+    return arr.sort((x,y) => (x.done === y.done)? 0 : x.done? 1 : -1 )
+  }
   const handleSubmit = (title, done) => {
     const newTodo = {
       _id: new Date(),
@@ -86,16 +62,17 @@ const Todo = () => {
       priority: 1,
       userId: "6184f82b6a22c9027e4a324d",
     }
-    setTodos([...todos, newTodo])
+    setTodos([newTodo, ...todos])
   }
 
   const handleChangeDone = (done, id) => {
-    const newTodos = todos.map((todo) => {
+    let newTodos = todos.map((todo) => {
       if(todo._id === id) {
         todo.done = done
       }
       return todo
     })
+    newTodos =  sortTodos(newTodos)
     setTodos([...newTodos])
   }
 

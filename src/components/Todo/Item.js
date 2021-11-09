@@ -35,7 +35,7 @@ const ItemTodo = (props) => {
         <ListItemIcon>
           <Checkbox onChange={_handleChangeDone} checked={done}/>
         </ListItemIcon>
-        <ListItemText primary={title} />
+        <ListItemText style={{textDecorationLine: done ? 'line-through': 'none' }} primary={title} />
       </ListItemButton>
     </ListItem>
   )
