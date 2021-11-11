@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
-
+import api from './constants/api'
 const client = new ApolloClient({
-  uri: 'http://localhost:8080/graphql',
+  uri: api.GRAPHQL,
   cache: new InMemoryCache()
 });
 

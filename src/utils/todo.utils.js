@@ -1,14 +1,13 @@
 import axios from 'axios'
-import config from '../config'
+import api from '../constants/api'
 const getHeaders = () => {
   // eslint-disable-next-line no-undef
   return { Authorization: `Bearer ${localStorage.getItem('token')}` }
 }
 
 export const getAllTodos = async () => {
-  const server = config.serverUrl
   try {
-    const res = await axios.get(`${server}/todo`, {headers: getHeaders()});
+    const res = await axios.get(`${api.REST}/todo`, {headers: getHeaders()});
     return res.data.data
   }
   catch(e) {
@@ -17,10 +16,9 @@ export const getAllTodos = async () => {
 }
 
 export const addTodo = async ({title, done = false, priority = 1}) => {
-  const server = config.serverUrl
   try {
     // eslint-disable-next-line no-undef
-    const res = await axios.post(`${server}/todo`, {title, done, priority}, {headers: getHeaders()});
+    const res = await axios.post(`${api.REST}/todo`, {title, done, priority}, {headers: getHeaders()});
     return res.data.data
   }
   catch(e) {
@@ -29,7 +27,6 @@ export const addTodo = async ({title, done = false, priority = 1}) => {
 }
 
 export const updateTodo = async ({title, done, priority = 1, id}) => {
-  const server = config.serverUrl
   const payload = {
     ...(title && {title}),
     ...(done !== undefined && {done}),
@@ -38,7 +35,7 @@ export const updateTodo = async ({title, done, priority = 1, id}) => {
 
   try {
     // eslint-disable-next-line no-undef
-    const res = await axios.put(`${server}/todo/${id}`,payload, {headers: getHeaders()});
+    const res = await axios.put(`${api.REST}/todo/${id}`,payload, {headers: getHeaders()});
     return res.data.data
   }
   catch(e) {
@@ -47,10 +44,10 @@ export const updateTodo = async ({title, done, priority = 1, id}) => {
 }
 
 export const deleteTodo = async ({id}) => {
-  const server = config.serverUrl
+  console.log(id);
   try {
     // eslint-disable-next-line no-undef
-    const res = await axios.delete(`${server}/todo/${id}`, {headers: getHeaders()});
+    const res = await axios.delete(`${api.REST}/todo/${id}`, {headers: getHeaders()});
     return res.data.data
   }
   catch(e) {
