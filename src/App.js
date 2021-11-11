@@ -9,6 +9,7 @@ import Header from './components/Header';
 import Todo from './components/Todo';
 import Login from './components/Login';
 import PrivateRoute from "./components/PrivateRoute";
+import TodoGQL from "./components/TodoGQL";
 export const AuthContext = React.createContext(null);
 function App() {
   // eslint-disable-next-line no-undef
@@ -22,6 +23,7 @@ function App() {
             <Route exact path='/login' element={<Login/>}/>
             <Route exact path='/' element={<PrivateRoute/>}>
               <Route exact path='/todo' element={<Todo/>}/>
+              <Route exact path='/todogql' element={<TodoGQL/>}/>
             </Route>
           </Routes>
         </Fragment>
