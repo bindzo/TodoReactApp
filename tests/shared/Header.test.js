@@ -38,7 +38,6 @@ describe('The Header component', () => {
       </AuthContext.Provider>
     );
     const button = header.find(Button).find('button#logout-btn');
-    console.log(button);
     button.simulate('click')
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1)
     expect(mockedUsedNavigate).toHaveBeenCalledWith('/login')
