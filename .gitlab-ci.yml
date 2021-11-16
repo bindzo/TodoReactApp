@@ -1,0 +1,39 @@
+image: node:latest
+
+stages:
+  - build
+  - test
+  - lint
+
+build:
+  stage: build
+  script:
+    - yarn
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - node_modules/
+
+test:
+  stage: test
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  dependencies:
+    - build
+  script:
+    - yarn test:ci
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - junit.xml
+      cobertura: coverage/cobertura-coverage.xml
+
+eslint:
+ stage: lint
+ script:
+    - npm i eslint
+    - node_modules/eslint/bin/eslint.js .
