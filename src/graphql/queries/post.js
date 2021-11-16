@@ -11,4 +11,4 @@ query Posts {
 }
 `;
 
-export default GET_POSTS;
+export default {GET_POSTS};

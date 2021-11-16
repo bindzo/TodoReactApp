@@ -3,15 +3,15 @@ import React, { useState } from 'react'
 import AddTodoInput from '../../components/post/CreatePost'
 import Todo from '../../components/post/ItemPost'
 import { useQuery, useMutation } from '@apollo/client';
-import ADD_POST from '../../graphql/mutations/addPost';
-import GET_POSTS from '../../graphql/queries/getPosts';
+import mutationsPost from '../../graphql/mutations/post';
+import queriesPost from '../../graphql/queries/post';
 import { Container, ListTodo } from './styles';
 
 
 const TodoGQL = () => {
   const [todos, setTodos] = useState([])
-  useQuery(GET_POSTS, {onCompleted: (data) => setTodos(data.posts)});
-  const [createPost] = useMutation(ADD_POST);
+  useQuery(queriesPost.GET_POSTS, {onCompleted: (data) => setTodos(data.posts)});
+  const [createPost] = useMutation(mutationsPost.ADD_POST);
   const renderTodos = () => {
     return todos.map((todo) => <Todo key={todo.id} todo={todo}/>)
   }

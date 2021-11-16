@@ -5,4 +5,4 @@ mutation CreatePost($data: PostInput!) {
   createPost(data: $data)
 }`;
 
-export default ADD_POST;
+export default {ADD_POST};

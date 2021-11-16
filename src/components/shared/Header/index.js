@@ -36,7 +36,7 @@ export default function Header() {
             <StyledLink to="/todogql">
               <Button color="inherit">GRAPHQL</Button>
             </StyledLink>
-            <Button onClick={onLogoutClick} color="inherit">Logout</Button>
+            <Button id="logout-btn" onClick={onLogoutClick} color="inherit">Logout</Button>
           </div>
           }
         </Toolbar>

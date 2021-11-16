@@ -21,6 +21,7 @@ ReactDOM.render(
     </React.StrictMode>
   </ApolloProvider>
   ,
+  // eslint-disable-next-line no-undef
   document.getElementById('root')
 );
 
