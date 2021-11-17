@@ -8,7 +8,7 @@ stages:
 build:
   stage: build
   script:
-    - yarn
+    - npm i
   cache:
     paths:
       - node_modules/
@@ -24,7 +24,7 @@ test:
   dependencies:
     - build
   script:
-    - yarn test:ci
+    - npm run test:ci
   artifacts:
     when: always
     reports:
