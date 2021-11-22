@@ -44,7 +44,6 @@ export const updateTodo = async ({title, done, priority = 1, id}) => {
 }
 
 export const deleteTodo = async ({id}) => {
-  console.log(id);
   try {
     // eslint-disable-next-line no-undef
     const res = await axios.delete(`${api.REST}/todo/${id}`, {headers: getHeaders()});
